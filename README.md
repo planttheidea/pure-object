@@ -30,12 +30,16 @@ var pure = window.pureObject;
 const objectToPurify = {
   foo: 'bar'
 };
+
+// create an object with no prototype
 const pureObject = pure(objectToPurify);
 
 console.log(pureObject); // {foo: 'bar'}
 console.log(object.toString); // [Function]
 console.log(pureObject.toString); // undefined
+console.log(Object.getPrototypeOf(pureObject)); // null
 
+// create an object with only the prototypical methods you pass
 const pureObjectWithProto = pure(objectToPurify, {
   bar() {
     console.log('baz');
@@ -46,6 +50,14 @@ console.log(Object.getPrototypeOf(pureObject)); // {bar: [Function]}
 console.log(object.toString); // [Function]
 console.log(pureObject.toString); // undefined (bar is the only method on the prototype)
 ```
+
+**_pure(objectToClone: Object, prototype: Object)_**
+
+* *objectToClone: Object*
+  * Object whose key / value pairs will be shallow-cloned to the pure object with same property descriptor
+  * Clones both enumerable and non-enumerable properties (uses `getOwnPropertyNames`)
+* *prototype: Object*
+  * Object whose key / value pairs will be assigned to the pure object's prototype (if not passed, prototype is `null`)
 
 #### Reasons
 
