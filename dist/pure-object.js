@@ -73,6 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * faster implementation of forEach
 	 *
 	 * @param {array<*>} array
+	 * @param {number} array.length
 	 * @param {function} fn
 	 */
 	var forEach = function forEach(array, fn) {
@@ -89,11 +90,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * create an object with no additional prototypical methods beyond
 	 * what is passed in the second parameter
 	 *
-	 * @param {object} object
+	 * @param {object} object={}
 	 * @param {object} prototype={}
 	 * @return {object}
 	 */
-	var pureObject = function pureObject(object) {
+	var pureObject = function pureObject() {
+	  var object = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	  var prototype = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 	
 	  var prototypeKeys = OBJECT.keys(prototype);
@@ -109,12 +111,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	
 	  var bareObject = objectCreate(prototypeObject);
+	  var propertyNames = OBJECT.getOwnPropertyNames(object);
 	
-	  forEach(OBJECT.getOwnPropertyNames(object), function (key) {
-	    var propertyDescriptor = OBJECT.getOwnPropertyDescriptor(object, key);
+	  if (propertyNames.length) {
+	    forEach(propertyNames, function (key) {
+	      var propertyDescriptor = OBJECT.getOwnPropertyDescriptor(object, key);
 	
-	    OBJECT.defineProperty(bareObject, key, propertyDescriptor);
-	  });
+	      OBJECT.defineProperty(bareObject, key, propertyDescriptor);
+	    });
+	  }
 	
 	  return bareObject;
 	};

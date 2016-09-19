@@ -22,11 +22,11 @@ const forEach = (array, fn) => {
  * create an object with no additional prototypical methods beyond
  * what is passed in the second parameter
  *
- * @param {object} object
+ * @param {object} object={}
  * @param {object} prototype={}
  * @return {object}
  */
-const pureObject = (object, prototype = {}) => {
+const pureObject = (object = {}, prototype = {}) => {
   const prototypeKeys = OBJECT.keys(prototype);
 
   let prototypeObject = null;
@@ -40,12 +40,15 @@ const pureObject = (object, prototype = {}) => {
   }
 
   const bareObject = objectCreate(prototypeObject);
+  const propertyNames = OBJECT.getOwnPropertyNames(object);
 
-  forEach(OBJECT.getOwnPropertyNames(object), (key) => {
-    const propertyDescriptor = OBJECT.getOwnPropertyDescriptor(object, key);
+  if (propertyNames.length) {
+    forEach(propertyNames, (key) => {
+      const propertyDescriptor = OBJECT.getOwnPropertyDescriptor(object, key);
 
-    OBJECT.defineProperty(bareObject, key, propertyDescriptor);
-  });
+      OBJECT.defineProperty(bareObject, key, propertyDescriptor);
+    });
+  }
 
   return bareObject;
 };

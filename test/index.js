@@ -2,6 +2,16 @@ import test from 'ava';
 
 import pure from '../src';
 
+test('if pureObject creates an empty object with a null prototype', (t) => {
+  const pureObject = pure();
+
+  // the values are equal
+  t.deepEqual(pureObject, {});
+
+  // there is no prototype on the pure object
+  t.is(Object.getPrototypeOf(pureObject), null);
+});
+
 test('if pureObject creates an object with a null prototype and the keys I want', (t) => {
   const object = {
     foo: 'bar',
