@@ -1,6 +1,6 @@
 # pure-object
 
-Create objects with no inhereted prototype.
+Create objects with no inhereted prototype
 
 #### Table of Contents
 * [Installation](#installation)
