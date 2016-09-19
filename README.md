@@ -61,7 +61,7 @@ console.log(pureObject.toString); // undefined (bar is the only method on the pr
 
 #### Reasons
 
-1. You want to use a simple map with as little memory allocaiton as possible
+1. You want to use a simple map with as little memory allocation as possible
 2. You want to do a for-in loop and not need to use `hasOwnProperty`
 3. You want to create prototypical methods without potentially overriding / having multiples on the chain
 
@@ -69,9 +69,9 @@ I'm sure there are more, but these are the big three I can think of.
 
 #### Benefits
 
-1. Simplified prototypical chain (only the methods you explicitly set will be on the prototype)
-2. Memory allocation (footprint is smaller than the standard object)
-3. More logical looping (no need to check `hasOwnProperty` in for-in loops)
+1. Tinier footprint (memory allocation is smaller than the standard object's)
+2. More logical looping (no need to check `hasOwnProperty` in for-in loops)
+3. Simplified prototypical chain (only the methods you explicitly set will be on the prototype)
 
 It is very likely that a vast majority (perhaps all) of your objects could be made into pure objects and you would never notice the difference (except for the memory savings and the lack of `hasOwnProperty` checkers!).
 
