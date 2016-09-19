@@ -4,8 +4,7 @@
     "babel": "inherit",
     "failFast": true,
     "files": [
-      "./test/index.js",
-      "./test/utils.js"
+      "./test/index.js"
     ],
     "require": [
       "babel-register",

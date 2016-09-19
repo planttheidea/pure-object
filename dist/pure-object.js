@@ -59,17 +59,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	var OBJECT = Object;
+	var objectCreate = OBJECT.create;
 	
-	var _utils = __webpack_require__(2);
+	/**
+	 * faster implementation of forEach
+	 *
+	 * @param {array<*>} array
+	 * @param {function} fn
+	 */
+	var forEach = function forEach(array, fn) {
+	  var length = array.length;
 	
-	var objectKeys = Object.keys;
+	  var index = -1;
+	
+	  while (++index < length) {
+	    fn(array[index], index, array);
+	  }
+	};
 	
 	/**
 	 * create an object with no additional prototypical methods beyond
@@ -82,52 +96,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	var pureObject = function pureObject(object) {
 	  var prototype = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 	
-	  var prototypeKeys = objectKeys(prototype);
+	  var prototypeKeys = OBJECT.keys(prototype);
 	
 	  var prototypeObject = null;
 	
 	  if (prototypeKeys.length) {
-	    prototypeObject = (0, _utils.createObject)();
+	    prototypeObject = objectCreate(null);
 	
-	    prototypeKeys.forEach(function (key) {
+	    forEach(prototypeKeys, function (key) {
 	      prototypeObject[key] = prototype[key];
 	    });
 	  }
 	
-	  var bareObject = (0, _utils.createObject)(prototypeObject);
+	  var bareObject = objectCreate(prototypeObject);
 	
-	  objectKeys(object).forEach(function (key) {
-	    bareObject[key] = object[key];
+	  forEach(OBJECT.getOwnPropertyNames(object), function (key) {
+	    var propertyDescriptor = OBJECT.getOwnPropertyDescriptor(object, key);
+	
+	    OBJECT.defineProperty(bareObject, key, propertyDescriptor);
 	  });
 	
 	  return bareObject;
 	};
 	
 	exports.default = pureObject;
-	module.exports = exports['default'];
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/**
-	 * create a new object based on the prototype passed, defaulting to null (no prototype)
-	 *
-	 * @param {object} prototype=null
-	 * @return {object}
-	 */
-	var createObject = function createObject() {
-	  var prototype = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
-	
-	  return Object.create(prototype);
-	};
-	
-	exports.createObject = createObject;
+	module.exports = exports["default"];
 
 /***/ }
 /******/ ])

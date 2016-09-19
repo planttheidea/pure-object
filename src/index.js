@@ -1,8 +1,22 @@
-const objectKeys = Object.keys;
+const OBJECT = Object;
+const objectCreate = OBJECT.create;
 
-import {
-  createObject
-} from './utils';
+/**
+ * faster implementation of forEach
+ *
+ * @param {array<*>} array
+ * @param {number} array.length
+ * @param {function} fn
+ */
+const forEach = (array, fn) => {
+  const length = array.length;
+
+  let index = -1;
+
+  while (++index < length) {
+    fn(array[index], index, array);
+  }
+};
 
 /**
  * create an object with no additional prototypical methods beyond
@@ -13,22 +27,24 @@ import {
  * @return {object}
  */
 const pureObject = (object, prototype = {}) => {
-  const prototypeKeys = objectKeys(prototype);
+  const prototypeKeys = OBJECT.keys(prototype);
 
   let prototypeObject = null;
 
   if (prototypeKeys.length) {
-    prototypeObject = createObject();
+    prototypeObject = objectCreate(null);
 
-    prototypeKeys.forEach((key) => {
+    forEach(prototypeKeys, (key) => {
       prototypeObject[key] = prototype[key];
     });
   }
 
-  const bareObject = createObject(prototypeObject);
+  const bareObject = objectCreate(prototypeObject);
 
-  objectKeys(object).forEach((key) => {
-    bareObject[key] = object[key];
+  forEach(OBJECT.getOwnPropertyNames(object), (key) => {
+    const propertyDescriptor = OBJECT.getOwnPropertyDescriptor(object, key);
+
+    OBJECT.defineProperty(bareObject, key, propertyDescriptor);
   });
 
   return bareObject;
