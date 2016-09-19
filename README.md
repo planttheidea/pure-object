@@ -1,6 +1,6 @@
 # pure-object
 
-Simple instantiation of objects with no internal prototype.
+Create objects with no inhereted prototype.
 
 #### Table of Contents
 * [Installation](#installation)
