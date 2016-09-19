@@ -5,7 +5,6 @@ Create objects with no inhereted prototype
 #### Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
-* [Reasons](#reasons)
 * [Benefits](#benefits)
 * [Development](#development)
 
@@ -58,14 +57,6 @@ console.log(pureObject.toString); // undefined (bar is the only method on the pr
   * Clones both enumerable and non-enumerable properties (uses `getOwnPropertyNames`)
 * *prototype: Object*
   * Object whose key / value pairs will be assigned to the pure object's prototype (if not passed, prototype is `null`)
-
-#### Reasons
-
-1. You want to use a simple map with as little memory allocation as possible
-2. You want to do a for-in loop and not need to use `hasOwnProperty`
-3. You want to create prototypical methods without potentially overriding / having multiples on the chain
-
-I'm sure there are more, but these are the big three I can think of.
 
 #### Benefits
 
