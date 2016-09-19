@@ -1,1 +1,76 @@
 # pure-object
+
+Simple instantiation of objects with no internal prototype.
+
+#### Table of Contents
+* [Installation](#installation)
+* [Usage](#usage)
+* [Reasons](#reasons)
+* [Benefits](#benefits)
+* [Development](#development)
+
+#### Installation
+
+```
+$ npm i pure-object --save
+```
+
+#### Usage
+
+```javascript
+// ES2015
+import pure from 'pure-object';
+
+// CommonJS
+const pure = require('pure-object');
+
+// script
+var pure = window.pureObject;
+
+const objectToPurify = {
+  foo: 'bar'
+};
+const pureObject = pure(objectToPurify);
+
+console.log(pureObject); // {foo: 'bar'}
+console.log(object.toString); // [Function]
+console.log(pureObject.toString); // undefined
+
+const pureObjectWithProto = pure(objectToPurify, {
+  bar() {
+    console.log('baz');
+  }
+});
+
+console.log(Object.getPrototypeOf(pureObject)); // {bar: [Function]}
+console.log(object.toString); // [Function]
+console.log(pureObject.toString); // undefined (bar is the only method on the prototype)
+```
+
+#### Reasons
+
+1. You want to use a simple map with as little memory allocaiton as possible
+2. You want to do a for-in loop and not need to use `hasOwnProperty`
+3. You want to create prototypical methods without potentially overriding / having multiples on the chain
+
+I'm sure there are more, but these are the big three I can think of.
+
+#### Benefits
+
+1. Simplified prototypical chain (only the methods you explicitly set will be on the prototype)
+2. Memory allocation (footprint is smaller than the standard object)
+3. More logical looping (no need to check `hasOwnProperty` in for-in loops)
+
+It is very likely that a vast majority (perhaps all) of your objects could be made into pure objects and you would never notice the difference (except for the memory savings and the lack of `hasOwnProperty` checkers!).
+
+#### Development
+
+Standard stuff, clone the repo and `npm install` dependencies. The npm scripts available:
+* `build` => run webpack to build pure-object.js with NODE_ENV=development
+* `build-minifed` => run webpack to build pure-object.min.js with NODE_ENV=production
+* `dev` => run webpack dev server to run example app (playground!)
+* `lint` => run ESLint against all files in the `src` folder
+* `prepublish` => run `lint`, `test`, `transpile`, `build`, and `build-minified`
+* `test` => run AVA test functions with `NODE_ENV=test`
+* `test:watch` => same as `test`, but runs persistent watcher
+* `transpile` => run babel against all files in `src` to create files in `lib`
