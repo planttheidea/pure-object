@@ -14,7 +14,7 @@
   "bugs": {
     "url": "https://github.com/planttheidea/pure-object/issues"
   },
-  "description": "Immutable objects and arrays in a natural way",
+  "description": "Create objects with no inhereted prototype",
   "devDependencies": {
     "ava": "0.16.0",
     "babel": "6.5.2",
@@ -42,7 +42,7 @@
   "keywords": [
     "object",
     "prototype",
-    "pure-object"
+    "pure"
   ],
   "license": "MIT",
   "main": "lib/index.js",
