@@ -98,15 +98,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var object = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	  var prototype = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 	
-	  var prototypeKeys = OBJECT.keys(prototype);
+	  var protoPropertyNames = OBJECT.getOwnPropertyNames(prototype);
+	  var protoPropertySymbols = OBJECT.getOwnPropertySymbols ? OBJECT.getOwnPropertySymbols(prototype) : [];
 	
-	  var prototypeObject = null;
+	  var prototypeObject = null,
+	      propertyDescriptor = void 0;
 	
-	  if (prototypeKeys.length) {
+	  if (protoPropertyNames.length) {
 	    prototypeObject = objectCreate(null);
 	
-	    forEach(prototypeKeys, function (key) {
-	      prototypeObject[key] = prototype[key];
+	    forEach(protoPropertyNames, function (key) {
+	      propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, key);
+	
+	      OBJECT.defineProperty(prototypeObject, key, propertyDescriptor);
+	    });
+	  }
+	
+	  if (protoPropertySymbols.length) {
+	    if (prototypeObject === null) {
+	      prototypeObject = objectCreate(null);
+	    }
+	
+	    forEach(protoPropertySymbols, function (symbol) {
+	      propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, symbol);
+	
+	      OBJECT.defineProperty(prototypeObject, symbol, propertyDescriptor);
 	    });
 	  }
 	

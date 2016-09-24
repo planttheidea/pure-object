@@ -16,6 +16,9 @@ console.log(emptyObject);
 const objectWithProto = pure(originalObject, {
   bar() {
     console.log(this.foo);
+  },
+  [Symbol('baz')]() {
+    console.log(this.bar);
   }
 });
 
