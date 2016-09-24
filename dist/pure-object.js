@@ -101,13 +101,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var protoPropertyNames = OBJECT.getOwnPropertyNames(prototype);
 	  var protoPropertySymbols = OBJECT.getOwnPropertySymbols ? OBJECT.getOwnPropertySymbols(prototype) : [];
 	
-	  var prototypeObject = null;
+	  var prototypeObject = null,
+	      propertyDescriptor = void 0;
 	
 	  if (protoPropertyNames.length) {
 	    prototypeObject = objectCreate(null);
 	
 	    forEach(protoPropertyNames, function (key) {
-	      var propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, key);
+	      propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, key);
 	
 	      OBJECT.defineProperty(prototypeObject, key, propertyDescriptor);
 	    });
@@ -119,7 +120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    forEach(protoPropertySymbols, function (symbol) {
-	      var propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, symbol);
+	      propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, symbol);
 	
 	      OBJECT.defineProperty(prototypeObject, symbol, propertyDescriptor);
 	    });

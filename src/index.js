@@ -30,13 +30,14 @@ const pureObject = (object = {}, prototype = {}) => {
   const protoPropertyNames = OBJECT.getOwnPropertyNames(prototype);
   const protoPropertySymbols = OBJECT.getOwnPropertySymbols ? OBJECT.getOwnPropertySymbols(prototype) : [];
 
-  let prototypeObject = null;
+  let prototypeObject = null,
+      propertyDescriptor;
 
   if (protoPropertyNames.length) {
     prototypeObject = objectCreate(null);
 
     forEach(protoPropertyNames, (key) => {
-      const propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, key);
+      propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, key);
 
       OBJECT.defineProperty(prototypeObject, key, propertyDescriptor);
     });
@@ -48,7 +49,7 @@ const pureObject = (object = {}, prototype = {}) => {
     }
 
     forEach(protoPropertySymbols, (symbol) => {
-      const propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, symbol);
+      propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, symbol);
 
       OBJECT.defineProperty(prototypeObject, symbol, propertyDescriptor);
     });
