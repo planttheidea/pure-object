@@ -27,15 +27,30 @@ const forEach = (array, fn) => {
  * @return {object}
  */
 const pureObject = (object = {}, prototype = {}) => {
-  const prototypeKeys = OBJECT.keys(prototype);
+  const protoPropertyNames = OBJECT.getOwnPropertyNames(prototype);
+  const protoPropertySymbols = OBJECT.getOwnPropertySymbols ? OBJECT.getOwnPropertySymbols(prototype) : [];
 
   let prototypeObject = null;
 
-  if (prototypeKeys.length) {
+  if (protoPropertyNames.length) {
     prototypeObject = objectCreate(null);
 
-    forEach(prototypeKeys, (key) => {
-      prototypeObject[key] = prototype[key];
+    forEach(protoPropertyNames, (key) => {
+      const propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, key);
+
+      OBJECT.defineProperty(prototypeObject, key, propertyDescriptor);
+    });
+  }
+
+  if (protoPropertySymbols.length) {
+    if (prototypeObject === null) {
+      prototypeObject = objectCreate(null);
+    }
+
+    forEach(protoPropertySymbols, (symbol) => {
+      const propertyDescriptor = OBJECT.getOwnPropertyDescriptor(prototype, symbol);
+
+      OBJECT.defineProperty(prototypeObject, symbol, propertyDescriptor);
     });
   }
 

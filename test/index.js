@@ -35,6 +35,9 @@ test('if pureObject creates an object with a prototype that only has what I pass
     bar: 'baz',
     baz() {
       console.log(this.bar);
+    },
+    [Symbol('foo')]() {
+      console.log(Symbol('bar'));
     }
   };
   const pureObject = pure(object, proto);
