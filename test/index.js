@@ -21,7 +21,8 @@ test('if pureObject creates an object with a null prototype and the keys I want'
   const pureObject = pure(object);
 
   // the values are equal
-  t.deepEqual(pureObject, object);
+  t.is(Object.getPrototypeOf(pureObject), null);
+  t.deepEqual({...pureObject}, object);
 
   // there is no prototype on the pure object
   t.is(Object.getPrototypeOf(pureObject), null);
@@ -43,7 +44,7 @@ test('if pureObject creates an object with a prototype that only has what I pass
   const pureObject = pure(object, proto);
 
   // the values and prototypes are equal
-  t.deepEqual(object, pureObject);
+  t.deepEqual(object, {...pureObject});
   t.deepEqual(Object.getPrototypeOf(pureObject), proto);
 
   // the original object is a standard object

@@ -1,11 +1,8 @@
-const path = require('path');
 const webpack = require('webpack');
 const defaultConfig = require('./webpack.config');
 
 module.exports = Object.assign({}, defaultConfig, {
   cache: false,
-
-  debug: false,
 
   devtool: undefined,
 
@@ -29,4 +26,3 @@ module.exports = Object.assign({}, defaultConfig, {
     })
   ])
 });
-;

@@ -3,47 +3,40 @@
   "ava": {
     "babel": "inherit",
     "failFast": true,
-    "files": [
-      "./test/index.js"
-    ],
-    "require": [
-      "babel-register",
-      "babel-polyfill"
-    ]
+    "files": ["./test/index.js"],
+    "require": ["babel-register", "babel-polyfill"],
+    "verbose": true
   },
   "bugs": {
     "url": "https://github.com/planttheidea/pure-object/issues"
   },
   "description": "Create objects with no inhereted prototype",
   "devDependencies": {
-    "ava": "0.16.0",
-    "babel": "6.5.2",
-    "babel-cli": "6.14.0",
-    "babel-eslint": "6.1.2",
-    "babel-loader": "6.2.5",
+    "ava": "0.24.0",
+    "babel": "6.23.0",
+    "babel-cli": "6.26.0",
+    "babel-eslint": "8.0.3",
+    "babel-loader": "7.1.2",
     "babel-plugin-add-module-exports": "0.2.1",
-    "babel-polyfill": "6.13.0",
+    "babel-polyfill": "6.26.0",
     "babel-preset-latest": "^6.14.0",
-    "babel-preset-react": "6.11.1",
-    "babel-preset-stage-2": "6.13.0",
-    "babel-register": "6.14.0",
-    "ejs": "2.5.2",
-    "eslint": "3.6.0",
-    "eslint-friendly-formatter": "2.0.6",
-    "eslint-loader": "1.5.0",
-    "html-webpack-plugin": "2.22.0",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-2": "6.24.1",
+    "babel-register": "6.26.0",
+    "ejs": "2.5.7",
+    "eslint": "4.12.1",
+    "eslint-config-rapid7": "^2.11.1",
+    "eslint-friendly-formatter": "3.0.0",
+    "eslint-loader": "1.9.0",
+    "html-webpack-plugin": "2.30.1",
     "in-publish": "^2.0.0",
-    "react": "15.3.2",
-    "react-dom": "15.3.2",
-    "webpack": "1.13.2",
-    "webpack-dev-server": "1.16.1"
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
+    "webpack": "3.9.1",
+    "webpack-dev-server": "2.9.5"
   },
   "homepage": "https://github.com/planttheidea/pure-object#readme",
-  "keywords": [
-    "object",
-    "prototype",
-    "pure"
-  ],
+  "keywords": ["object", "prototype", "pure"],
   "license": "MIT",
   "main": "lib/index.js",
   "name": "pure-object",
@@ -52,13 +45,17 @@
     "url": "git+https://github.com/planttheidea/pure-object.git"
   },
   "scripts": {
-    "build": "NODE_ENV=development ./node_modules/webpack/bin/webpack.js --progress --colors",
-    "build-minified": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js --progress --colors --config=webpack.config.minified.js",
-    "compile-for-publish": "npm run lint && npm run test && npm run transpile && npm run dist",
-    "dev": "NODE_ENV=development ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --config=webpack.config.dev.js",
+    "build":
+      "NODE_ENV=development ./node_modules/webpack/bin/webpack.js --progress --colors",
+    "build-minified":
+      "NODE_ENV=production ./node_modules/webpack/bin/webpack.js --progress --colors --config=webpack.config.minified.js",
+    "compile-for-publish":
+      "npm run lint && npm run test && npm run transpile && npm run dist",
+    "dev":
+      "NODE_ENV=development ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --config=webpack.config.dev.js",
     "dist": "npm run build && npm run build-minified",
     "lint": "NODE_ENV=test ./node_modules/eslint/bin/eslint.js src",
-    "prepublish": "in-publish && npm run compile-for-publish || in-install",
+    "prepublish": "if in-publish; then npm run compile-for-publish; fi",
     "test": "NODE_ENV=test ava --no-cache",
     "test:watch": "NODE_ENV=test ava --no-cache --watch",
     "transpile": "./node_modules/babel-cli/lib/babel/index.js -d lib/ src/"

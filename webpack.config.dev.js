@@ -8,8 +8,6 @@ const PORT = 3000;
 module.exports = {
   cache: true,
 
-  debug: true,
-
   devServer: {
     contentBase: './dist',
     host: 'localhost',
@@ -26,40 +24,30 @@ module.exports = {
 
   devtool: '#cheap-source-map',
 
-  entry: [
-    path.resolve(__dirname, 'DEV_ONLY', 'App.js')
-  ],
-
-  eslint: {
-    configFile: '.eslintrc',
-    emitError: true,
-    failOnError: true,
-    failOnWarning: false,
-    formatter: eslintFriendlyFormatter
-  },
+  entry: [path.resolve(__dirname, 'DEV_ONLY', 'App.js')],
 
   module: {
-    preLoaders: [
+    rules: [
       {
-        include: [
-          path.resolve(__dirname, 'src')
-        ],
+        enforce: 'pre',
+        include: [path.resolve(__dirname, 'src')],
         loader: 'eslint-loader',
+        options: {
+          configFile: '.eslintrc',
+          failOnError: true,
+          failOnWarning: false,
+          formatter: require('eslint-friendly-formatter')
+        },
         test: /\.js$/
-      }
-    ],
-
-    loaders: [
+      },
       {
         include: [
           path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'DEV_ONLY')
         ],
-        loader: 'babel',
-        query: {
-          presets: [
-            "react"
-          ]
+        loader: 'babel-loader',
+        options: {
+          presets: ['react']
         },
         test: /\.js$/
       }
@@ -76,22 +64,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.EnvironmentPlugin([
-      'NODE_ENV'
-    ]),
+    new webpack.EnvironmentPlugin(['NODE_ENV']),
     new HtmlWebpackPlugin()
-  ],
-
-  resolve: {
-    extensions: [
-      '',
-      '.js'
-    ],
-
-    fallback: [
-      path.join(__dirname, 'src')
-    ],
-
-    root: __dirname
-  }
+  ]
 };
