@@ -3,8 +3,13 @@
   "ava": {
     "babel": "inherit",
     "failFast": true,
-    "files": ["./test/index.js"],
-    "require": ["babel-register", "babel-polyfill"],
+    "files": [
+      "./test/index.js"
+    ],
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ],
     "verbose": true
   },
   "bugs": {
@@ -36,7 +41,11 @@
     "webpack-dev-server": "2.9.5"
   },
   "homepage": "https://github.com/planttheidea/pure-object#readme",
-  "keywords": ["object", "prototype", "pure"],
+  "keywords": [
+    "object",
+    "prototype",
+    "pure"
+  ],
   "license": "MIT",
   "main": "lib/index.js",
   "name": "pure-object",
@@ -45,14 +54,10 @@
     "url": "git+https://github.com/planttheidea/pure-object.git"
   },
   "scripts": {
-    "build":
-      "NODE_ENV=development ./node_modules/webpack/bin/webpack.js --progress --colors",
-    "build-minified":
-      "NODE_ENV=production ./node_modules/webpack/bin/webpack.js --progress --colors --config=webpack.config.minified.js",
-    "compile-for-publish":
-      "npm run lint && npm run test && npm run transpile && npm run dist",
-    "dev":
-      "NODE_ENV=development ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --config=webpack.config.dev.js",
+    "build": "NODE_ENV=development ./node_modules/webpack/bin/webpack.js --progress --colors",
+    "build-minified": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js --progress --colors --config=webpack.config.minified.js",
+    "compile-for-publish": "npm run lint && npm run test && npm run transpile && npm run dist",
+    "dev": "NODE_ENV=development ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --config=webpack.config.dev.js",
     "dist": "npm run build && npm run build-minified",
     "lint": "NODE_ENV=test ./node_modules/eslint/bin/eslint.js src",
     "prepublish": "if in-publish; then npm run compile-for-publish; fi",
@@ -60,5 +65,5 @@
     "test:watch": "NODE_ENV=test ava --no-cache --watch",
     "transpile": "./node_modules/babel-cli/lib/babel/index.js -d lib/ src/"
   },
-  "version": "1.1.0"
+  "version": "1.1.1"
 }
