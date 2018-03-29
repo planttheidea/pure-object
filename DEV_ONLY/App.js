@@ -1,9 +1,9 @@
 import React from 'react';
-import {
-  render
-} from 'react-dom';
+import {render} from 'react-dom';
 
 import pure from '../src';
+
+console.log(pure());
 
 const originalObject = {
   foo: 'bar'
@@ -26,22 +26,16 @@ console.log(objectWithProto);
 
 objectWithProto.bar();
 
-const App = () => {
-  return (
-    <div>
-      <h1>
-        App
-      </h1>
-    </div>
-  );
-};
+const App = () => (
+  <div>
+    <h1>App</h1>
+  </div>
+);
 
 const div = document.createElement('div');
 
 div.id = 'app-container';
 
-render((
-  <App/>
-), div);
+render(<App />, div);
 
 document.body.appendChild(div);
