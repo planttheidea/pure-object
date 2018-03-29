@@ -1,33 +1,33 @@
+'use strict';
+
 const path = require('path');
 const webpack = require('webpack');
 
-module.exports = {
-  cache: true,
+const ROOT = path.resolve(__dirname, '..');
 
+module.exports = {
   devtool: '#source-map',
 
-  entry: [path.resolve(__dirname, 'src', 'index.js')],
+  entry: path.join(ROOT, 'src/index.js'),
+
+  mode: 'development',
 
   module: {
     rules: [
       {
         enforce: 'pre',
-        include: [path.resolve(__dirname, 'src')],
-        loader: 'eslint-loader',
+        include: [path.resolve(ROOT, 'src')],
         options: {
-          configFile: '.eslintrc',
           emitError: true,
           failOnError: true,
-          failOnWarning: false,
+          failOnWarning: true,
           formatter: require('eslint-friendly-formatter')
         },
+        loader: 'eslint-loader',
         test: /\.js$/
       },
       {
-        include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'DEV_ONLY')
-        ],
+        include: [path.resolve(ROOT, 'src'), /DEV_ONLY/],
         loader: 'babel-loader',
         test: /\.js$/
       }
@@ -36,9 +36,9 @@ module.exports = {
 
   output: {
     filename: 'pure-object.js',
-    library: 'pureObject',
+    library: 'pure',
     libraryTarget: 'umd',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(ROOT, 'dist'),
     umdNamedDefine: true
   },
 
