@@ -6,7 +6,7 @@ import pure from '../src';
 console.log(pure());
 
 const originalObject = {
-  foo: 'bar'
+  foo: 'bar',
 };
 
 const emptyObject = pure(originalObject);
@@ -19,7 +19,7 @@ const objectWithProto = pure(originalObject, {
   },
   [Symbol('baz')]() {
     console.log(this.bar);
-  }
+  },
 });
 
 console.log(objectWithProto);
