@@ -14,9 +14,9 @@ test('if pureObject creates an empty object with a null prototype', (t) => {
 
 test('if pureObject creates an object with a null prototype and the keys I want', (t) => {
   const object = {
-    foo: 'bar',
     bar: 'baz',
-    baz: 'foo'
+    baz: 'foo',
+    foo: 'bar',
   };
   const pureObject = pure(object);
 
@@ -30,7 +30,7 @@ test('if pureObject creates an object with a null prototype and the keys I want'
 
 test('if pureObject creates an object with a prototype that only has what I pass it', (t) => {
   const object = {
-    foo: 'bar'
+    foo: 'bar',
   };
   const proto = {
     bar: 'baz',
@@ -39,7 +39,7 @@ test('if pureObject creates an object with a prototype that only has what I pass
     },
     [Symbol('foo')]() {
       console.log(Symbol('bar'));
-    }
+    },
   };
   const pureObject = pure(object, proto);
 
